@@ -1,0 +1,27 @@
+19:04:36 **** Incremental Build of configuration Debug for project UnqliteTest ****
+make all 
+Building file: ../main.cxx
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -fpermissive -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.cxx"
+Finished building: ../main.cxx
+ 
+Building target: UnqliteTest
+Invoking: Cross G++ Linker
+g++  -o "UnqliteTest"  ./main.o ./unqlite.o   
+Finished building target: UnqliteTest
+ 
+19:04:38 **** Incremental Build of configuration Debug for project UnqliteTest ****
+make all 
+make: Rien à faire pour « all ».
+10:57:44 **** Incremental Build of configuration Debug for project UnqliteTest ****
+make all 
+make: Rien à faire pour « all ».
+10:57:59 **** Incremental Build of configuration Debug for project UnqliteTest ****
+make all 
+make: Rien à faire pour « all ».
+10:58:06 **** Incremental Build of configuration Debug for project PlayBeat ****
+make -j8 all 
+make: Rien à faire pour « all ».
+21:06:44 **** Incremental Build of configuration Debug for project PlayBeat ****
+make -j8 all 
+make: Rien à faire pour « all ».

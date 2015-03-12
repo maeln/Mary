@@ -1,0 +1,10 @@
+graph G {
+metal--rock;
+metal--blues;
+rock--metal;
+rock--jazz;
+rock--blues;
+jazz--rock;
+blues--rock;
+blues--metal;
+}
