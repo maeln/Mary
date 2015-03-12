@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -laubio -lgcov -ltag
+LIBS := -laubio -ltag
 

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;PlayBeat/src/MusicMetadata.cxx&apos; to &apos;MusicMetadata.hxx&apos;" description="Rename resource &apos;MusicMetadata.cxx&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/MusicMetadata.cxx" name="MusicMetadata.hxx" stamp="1426167440287" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;PlayBeat/src/MusicMetadata.hpp&apos; to &apos;MusicMetadata.hxx&apos;" description="Rename resource &apos;MusicMetadata.hpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/MusicMetadata.hpp" name="MusicMetadata.hxx" stamp="1426168276851" updateReferences="true"/>
+</session>

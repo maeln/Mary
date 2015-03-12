@@ -16,9 +16,15 @@ class NotesCounter
 		void addNote(Notes note);
 		unsigned int getCount(Notes note);
 		std::vector<Notes> getAllNotes();
+		std::vector<Notes> getSortedNotes();
+
+		int searchNote(Notes note);
 
 	private:
-		std::map<Notes, unsigned int> counter;
+		std::vector<unsigned int> mergeSort(std::vector<unsigned int> noteid);
+		std::vector<unsigned int> merge(std::vector<unsigned int> left, std::vector<unsigned int> right);
+		std::vector<Notes> m_notes;
+		std::map<unsigned int, unsigned int> m_counter;
 };
 
 #endif

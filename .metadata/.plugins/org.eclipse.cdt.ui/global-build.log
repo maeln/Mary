@@ -1,27 +1,22 @@
-19:04:36 **** Incremental Build of configuration Debug for project UnqliteTest ****
+14:57:01 **** Incremental Build of configuration Release for project PlayBeat ****
 make all 
-Building file: ../main.cxx
-Invoking: Cross G++ Compiler
-g++ -O0 -g3 -Wall -c -fmessage-length=0 -fpermissive -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.cxx"
-Finished building: ../main.cxx
+make: Rien à faire pour « all ».
+14:57:03 **** Incremental Build of configuration Debug for project PlayBeat ****
+make -j6 all 
+Building target: PlayBeat
+Invoking: GCC C++ Linker
+g++ -p -pg -o "PlayBeat"  ./src/dsgl/dotFile/tokens/Tokens.o  ./src/dsgl/dotFile/DotFileLoader.o ./src/dsgl/dotFile/Lexer.o ./src/dsgl/dotFile/Parser.o  ./src/dsgl/Graph.o ./src/dsgl/Node.o  ./src/main.o ./src/notes.o ./src/notescounter.o ./src/notesfactory.o ./src/playbeat.o   -laubio -ltag
+Finished building target: PlayBeat
  
-Building target: UnqliteTest
-Invoking: Cross G++ Linker
-g++  -o "UnqliteTest"  ./main.o ./unqlite.o   
-Finished building target: UnqliteTest
- 
-19:04:38 **** Incremental Build of configuration Debug for project UnqliteTest ****
+14:58:58 **** Incremental Build of configuration Release for project PlayBeat ****
 make all 
 make: Rien à faire pour « all ».
-10:57:44 **** Incremental Build of configuration Debug for project UnqliteTest ****
+15:00:35 **** Incremental Build of configuration Release for project PlayBeat ****
 make all 
 make: Rien à faire pour « all ».
-10:57:59 **** Incremental Build of configuration Debug for project UnqliteTest ****
+15:02:34 **** Incremental Build of configuration Release for project PlayBeat ****
 make all 
 make: Rien à faire pour « all ».
-10:58:06 **** Incremental Build of configuration Debug for project PlayBeat ****
-make -j8 all 
-make: Rien à faire pour « all ».
-21:06:44 **** Incremental Build of configuration Debug for project PlayBeat ****
-make -j8 all 
+15:04:30 **** Incremental Build of configuration Release for project PlayBeat ****
+make all 
 make: Rien à faire pour « all ».

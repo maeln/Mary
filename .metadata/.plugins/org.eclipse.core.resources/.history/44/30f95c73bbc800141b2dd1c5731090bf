@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+#include <sstream>
+
+#include "notes.hxx"
+
+class MusicMetadata
+{
+	public:
+		std::string title;
+		std::string artists;
+		std::string genre;
+		int length;
+		int bpm;
+		std::vector<Notes> topNotes;
+
+		std::string toString()
+		{
+			std::stringstream ss;
+			ss << "==" << title << ", by: " << artists << "==" << std::endl;
+			ss << "Genre: " << genre << std::endl;
+
+		}
+};

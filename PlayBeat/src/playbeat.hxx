@@ -31,16 +31,17 @@
 #include <string>
 #include <aubio/aubio.h>
 
+#include "MusicMetadata.hxx"
 #include "notesfactory.hxx"
 
 class PlayBeat
 {
 	public:
-		PlayBeat(std::string file);
+		PlayBeat();
 		~PlayBeat();
+		MusicMetadata getMetadata(std::string file);
 	
 	private:
-		std::vector<Notes> fondamentales;		
 };
 
 #endif /* PLAYBEAT_HXX */ 

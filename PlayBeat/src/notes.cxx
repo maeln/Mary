@@ -1,5 +1,5 @@
-#include <cmath>
 #include "notes.hxx"
+#include <sstream>
 
 // Note : Fréquence d'une note dans la gamme tempéré (wikipedia) :
 // f0 : frequence de départ, alors fn = f0 * 2^(n/12)
@@ -7,10 +7,18 @@
 // 1 octave = 12 demi-ton.
 // ex: La : f0 = 55.0, 3ème octave : f0*2.0^(3.0*12.0/12.0) = 440Hz.
 
-Notes::Notes(std::string name, double freq) 
+Notes::Notes()
+{
+	m_freq = 0.0;
+	m_name = "";
+	m_octave = 0.0;
+}
+
+Notes::Notes(std::string name, double freq, double octave)
 {
 	m_freq = freq;
 	m_name = name;
+	m_octave = octave;
 }
 
 Notes::~Notes()
@@ -28,15 +36,14 @@ double Notes::getFreq(double octave)
 	return m_freq * pow(2.0, octave);
 }
 
-/*
-friend bool Notes::operator==(const Notes& o)
+std::string Notes::getNameWithOctave()
 {
-	return (m_name == o.getName());
+	std::stringstream ss;
+	ss << m_name << "-" << m_octave;
+	return ss.str();
 }
 
-bool Notes::operator<(const Notes& o)
+double Notes::getOctave()
 {
-	return (this.getFreq(0.0) < o.getFreq(0.0));
+	return m_octave;
 }
-*/
-

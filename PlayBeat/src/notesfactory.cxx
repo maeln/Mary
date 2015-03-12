@@ -5,40 +5,40 @@
 
 NotesFactory::NotesFactory()
 {
-	Notes fund("do", 32.70);
+	Notes fund("do", 32.70, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("do#", 34.65);
+	fund = Notes("do#", 34.65, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("re", 36.71);
+	fund = Notes("re", 36.71, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("re#", 38.89);
+	fund = Notes("re#", 38.89, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("mi", 41.20);
+	fund = Notes("mi", 41.20, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("fa", 43.65);
+	fund = Notes("fa", 43.65, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("fa#", 46.25);
+	fund = Notes("fa#", 46.25, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("sol", 49.00);
+	fund = Notes("sol", 49.00, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("sol#", 51.91);
+	fund = Notes("sol#", 51.91, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("la", 55.00);
+	fund = Notes("la", 55.00, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("la#", 58.27);
+	fund = Notes("la#", 58.27, 0.0);
 	fondamentales.push_back(fund);
 	
-	fund = Notes("si", 61.74);
+	fund = Notes("si", 61.74, 0.0);
 	fondamentales.push_back(fund);
 }
 
@@ -86,10 +86,8 @@ Notes NotesFactory::getNote(double frequency)
 	double diffSup = std::abs(borneSup.getFreq(octave) - frequency);
 	
 	if(diffInf > diffSup)
-		return borneSup;
+		return Notes(borneSup.getName(), frequency, octave);
 	else
-		return borneInf;
-	
-	//return borneInf;
+		return Notes(borneInf.getName(), frequency, octave);
 }
 

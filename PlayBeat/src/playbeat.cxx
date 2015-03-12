@@ -26,22 +26,35 @@
 #include <stdlib.h>
 #include <stdexcept>
 #include <algorithm>
+#include <cmath>
 
 // TagLib
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
 #include <taglib/tpropertymap.h>
 
-PlayBeat::PlayBeat(std::string filename)
+PlayBeat::PlayBeat()
 {
+}
+
+PlayBeat::~PlayBeat()
+{
+
+}
+
+MusicMetadata PlayBeat::getMetadata(std::string file)
+{
+	// Metadata.
+	MusicMetadata meta;
+
 	// Init variable.
 	uint_t bufferSize 	= 1024;
 	uint_t hopSize 		= 512;
 	uint_t samplerate	= 0;
-	
-	char_t* path		= (char_t*) filename.c_str();
+
+	char_t* path		= (char_t*) file.c_str();
 	char_t algo[8]		= "default";
-	
+
 	// Tag reader.
 	TagLib::FileRef tagFile(path);
 	if(tagFile.isNull())
@@ -51,15 +64,15 @@ PlayBeat::PlayBeat(std::string filename)
 	else
 	{
 		TagLib::Tag *tags = tagFile.tag();
-		std::cout << "TAGS:" << std::endl;
-		std::cout << "Title : " << tags->title() << std::endl;
-		std::cout << "Artist : " << tags->artist() << std::endl;
-		std::cout << "Genre : " << tags->genre() << std::endl;
-
-		TagLib::AudioProperties *prop =  tagFile.audioProperties();
-		int sec = prop->length() % 60;
-		int min = (prop->length() - sec) / 60;
-		std::cout << "Length : " << min << ":" << sec << std::endl;
+		meta.title = std::string(tags->title().toCString());
+		meta.artists = std::string(tags->artist().toCString());
+		meta.genre = std::string(tags->genre().toCString());
+		/*
+			TagLib::AudioProperties *prop =  tagFile.audioProperties();
+			int sec = prop->length() % 60;
+			int min = (prop->length() - sec) / 60;
+			std::cout << "Length : " << min << ":" << sec << std::endl;
+		 */
 	}
 
 	// Open audio file.
@@ -69,15 +82,15 @@ PlayBeat::PlayBeat(std::string filename)
 	{
 		exit(1);
 	}
-	
+
 	// Get the sample rate of the file.
 	if (samplerate == 0) {
 		samplerate = aubio_source_get_samplerate(audioFile);
 	}
-    
+
 	// I/O Buffer.
 	fvec_t* ibuf = new_fvec(hopSize);
-	
+
 	// Init variables for beat detection.
 	aubio_tempo_t* tempo;
 	fvec_t* tempo_out;
@@ -87,7 +100,7 @@ PlayBeat::PlayBeat(std::string filename)
 
 	tempo_out = new_fvec(2);
 	tempo = new_aubio_tempo(algo, bufferSize, hopSize, samplerate);
-	
+
 	// Init variables for pitch detection.
 	aubio_pitch_t* pitchDetector = new_aubio_pitch(algo, bufferSize, hopSize, samplerate);
 	fvec_t* pitch = new_fvec(1);
@@ -100,30 +113,30 @@ PlayBeat::PlayBeat(std::string filename)
 	int blocks = 0;
 	float beats = 0.;
 	float lastBeat = 0.;
-	
-	do 
+
+	do
 	{
 		// Read the file.
 		aubio_source_do(audioFile, ibuf, &read);
-		
+
 		// Process beat detection.
 		aubio_tempo_do (tempo, ibuf, tempo_out);
-		
+
 		is_beat = fvec_get_sample(tempo_out, 0);
 		if (silence_threshold != -90.)
 			is_silence = aubio_silence_detection(ibuf, silence_threshold);
-		
-		if (is_beat && !is_silence) 
+
+		if (is_beat && !is_silence)
 		{
 			beats += 1.0;
 			lastBeat = aubio_tempo_get_last_s(tempo);
 		}
-		
+
 		// Process pitch detection.
 		aubio_pitch_do(pitchDetector, ibuf, pitch);
-		
+
 		smpl_t pitch_found = fvec_get_sample(pitch, 0);
-		
+
 		try
 		{
 			Notes tmp = noteGetter.getNote(pitch_found);
@@ -133,31 +146,32 @@ PlayBeat::PlayBeat(std::string filename)
 		{
 			// Current blocks is silent.
 		}
-		
+
 		blocks++;
 		total_read += read;
 	} while (read == hopSize);
-	
+
 	// Show bpm :
-	std::cout << "nb beats : " << beats << std::endl;
-	std::cout << "last beats : " << lastBeat << std::endl;
-	std::cout << "bpm : " << beats/(lastBeat/60.) << std::endl;
-	
+	meta.bpm = floor(beats/(lastBeat/60.));
+	meta.length = floor(lastBeat);
+
 	// TO DO : Print top 10 pitch.
-	std::vector<Notes> notes = pitchs.getAllNotes();
-	std::sort(notes.begin(), notes.end());
-	unsigned int totalCount = 0;
-	for(unsigned int i=0; i<notes.size(); ++i)
-	{
-		totalCount += pitchs.getCount(notes.at(i));
-	}
-	
-	for(unsigned int i=0; i<notes.size(); ++i)
-	{
-		unsigned int noteCount = pitchs.getCount(notes.at(i));
-		double ratio = (double)noteCount / (double)totalCount;
-		std::cout << "Note: " << notes.at(i).getName() << ", count : " << noteCount << "(" << ratio*100.0 << "%)" << std::endl;
-	}
+	std::vector<Notes> notes = pitchs.getSortedNotes();
+	/*
+		unsigned int totalCount = 0;
+		for(unsigned int i=0; i<notes.size(); ++i)
+		{
+			totalCount += pitchs.getCount(notes.at(i));
+		}
+
+		for(unsigned int i=0; i<notes.size(); ++i)
+		{
+			unsigned int noteCount = pitchs.getCount(notes.at(i));
+			double ratio = (double)noteCount / (double)totalCount;
+			std::cout << "Note: " << notes.at(i).getNameWithOctave() << ", count : " << noteCount << "(" << ratio*100.0 << "%)" << std::endl;
+		}
+	 */
+	meta.topNotes = notes;
 
 	// Cleanup variable.
 	del_aubio_tempo(tempo);
@@ -167,15 +181,10 @@ PlayBeat::PlayBeat(std::string filename)
 	del_fvec(pitch);
 
 	del_aubio_source(audioFile);
-	
+
 	del_fvec(ibuf);
 	aubio_cleanup ();
-	//fflush(stderr);
-	//fflush(stdout);
-}
 
-PlayBeat::~PlayBeat()
-{
-
+	return meta;
 }
 

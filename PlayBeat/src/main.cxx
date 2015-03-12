@@ -1,18 +1,17 @@
 #include <iostream>
-#include <map>
-#include <set>
 #include <string>
 
-#include "dsgl/dotFile/DotFileLoader.hxx"
-#include "dsgl/Graph.hxx"
-#include "dsgl/Node.hxx"
+#include "MusicMetadata.hxx"
 #include "playbeat.hxx"
 
 int main(int argc, char** argv)
 {
 	std::string audioPath(argv[1]);
-	PlayBeat b(audioPath);
+	PlayBeat b;
+	MusicMetadata meta = b.getMetadata(audioPath);
+	std::cout << meta.toString() << std::endl;
 
+	/*
 	std::string graphPath(argv[2]);
 	DotFileLoader loader;
 	Graph* g = loader.load(graphPath);
@@ -24,6 +23,7 @@ int main(int argc, char** argv)
 		std::cout << ((Node*)*it)->get_name() << std::endl;
 
 	delete g;
+	*/
 
 	return 0;
 }
