@@ -1,0 +1,48 @@
+11:09:49 **** Build of configuration Debug for project UnqliteTest ****
+make all 
+Building file: ../main.cxx
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -fpermissive -MMD -MP -MF"main.d" -MT"main.d" -o "main.o" "../main.cxx"
+Finished building: ../main.cxx
+ 
+Building file: ../unqlite.c
+Invoking: Cross GCC Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"unqlite.d" -MT"unqlite.d" -o "unqlite.o" "../unqlite.c"
+../unqlite.c: In function ‘unqlite_value_string_format’:
+../unqlite.c:4885:6: warning: variable ‘rc’ set but not used [-Wunused-but-set-variable]
+  int rc;
+      ^
+../unqlite.c: In function ‘jx9_value_string_format’:
+../unqlite.c:8552:6: warning: variable ‘rc’ set but not used [-Wunused-but-set-variable]
+  int rc;
+      ^
+../unqlite.c: In function ‘jx9InputFormat’:
+../unqlite.c:12251:8: warning: variable ‘zExtra’ set but not used [-Wunused-but-set-variable]
+  char *zExtra;  
+        ^
+../unqlite.c: In function ‘jx9CompileBreak’:
+../unqlite.c:18388:8: warning: variable ‘nLine’ set but not used [-Wunused-but-set-variable]
+  sxu32 nLine;
+        ^
+../unqlite.c: In function ‘GenStateCollectFuncArgs’:
+../unqlite.c:19851:11: warning: variable ‘pCur’ set but not used [-Wunused-but-set-variable]
+  SyToken *pCur, *pIn;  /* Token stream */
+           ^
+../unqlite.c: In function ‘InternFormat’:
+../unqlite.c:29150:9: warning: variable ‘zExtra’ set but not used [-Wunused-but-set-variable]
+   char *zExtra;    
+         ^
+../unqlite.c: In function ‘ParseEndOfCentralDirectory’:
+../unqlite.c:29902:9: warning: variable ‘rc’ set but not used [-Wunused-but-set-variable]
+   sxi32 rc;
+         ^
+Finished building: ../unqlite.c
+ 
+Building target: UnqliteTest
+Invoking: Cross G++ Linker
+g++  -o "UnqliteTest"  ./main.o ./unqlite.o   
+Finished building target: UnqliteTest
+ 
+
+11:09:52 Build Finished (took 2s.416ms)
+

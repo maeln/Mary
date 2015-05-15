@@ -40,7 +40,7 @@ class PlayBeat
 		PlayBeat();
 		~PlayBeat();
 		MusicMetadata getMetadata(std::string file);
-	
+
 	private:
 };
 

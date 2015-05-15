@@ -1,22 +1,30 @@
-14:57:01 **** Incremental Build of configuration Release for project PlayBeat ****
-make all 
-make: Rien à faire pour « all ».
-14:57:03 **** Incremental Build of configuration Debug for project PlayBeat ****
-make -j6 all 
+14:27:45 **** Incremental Build of configuration Debug for project PlayBeat ****
+make -j8 all 
+Building file: ../src/main.cxx
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -p -pg -Wall -c -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cxx"
+Finished building: ../src/main.cxx
+ 
 Building target: PlayBeat
 Invoking: GCC C++ Linker
-g++ -p -pg -o "PlayBeat"  ./src/dsgl/dotFile/tokens/Tokens.o  ./src/dsgl/dotFile/DotFileLoader.o ./src/dsgl/dotFile/Lexer.o ./src/dsgl/dotFile/Parser.o  ./src/dsgl/Graph.o ./src/dsgl/Node.o  ./src/main.o ./src/notes.o ./src/notescounter.o ./src/notesfactory.o ./src/playbeat.o   -laubio -ltag
+g++ -p -pg -o "PlayBeat"  ./src/tools/StringFormat.o  ./src/dsgl/dotFile/tokens/Tokens.o  ./src/dsgl/dotFile/DotFileLoader.o ./src/dsgl/dotFile/Lexer.o ./src/dsgl/dotFile/Parser.o  ./src/dsgl/Graph.o ./src/dsgl/Node.o  ./src/main.o ./src/notes.o ./src/notescounter.o ./src/notesfactory.o ./src/playbeat.o   -laubio -ltag -lsqlite3
 Finished building target: PlayBeat
  
-14:58:58 **** Incremental Build of configuration Release for project PlayBeat ****
-make all 
+14:27:47 **** Incremental Build of configuration Debug for project PlayBeat ****
+make -j8 all 
 make: Rien à faire pour « all ».
-15:00:35 **** Incremental Build of configuration Release for project PlayBeat ****
-make all 
-make: Rien à faire pour « all ».
-15:02:34 **** Incremental Build of configuration Release for project PlayBeat ****
-make all 
-make: Rien à faire pour « all ».
-15:04:30 **** Incremental Build of configuration Release for project PlayBeat ****
-make all 
-make: Rien à faire pour « all ».
+14:36:22 **** Incremental Build of configuration Debug for project PlayBeat ****
+make -j8 all 
+Building file: ../src/main.cxx
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -p -pg -Wall -c -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cxx"
+../src/main.cxx:37:2: warning: multi-line comment [-Wcomment]
+  //std::string sql_req = "CREATE TABLE MUSICMETADATA(" \
+  ^
+Finished building: ../src/main.cxx
+ 
+Building target: PlayBeat
+Invoking: GCC C++ Linker
+g++ -p -pg -o "PlayBeat"  ./src/tools/StringFormat.o  ./src/dsgl/dotFile/tokens/Tokens.o  ./src/dsgl/dotFile/DotFileLoader.o ./src/dsgl/dotFile/Lexer.o ./src/dsgl/dotFile/Parser.o  ./src/dsgl/Graph.o ./src/dsgl/Node.o  ./src/main.o ./src/notes.o ./src/notescounter.o ./src/notesfactory.o ./src/playbeat.o   -laubio -ltag -lsqlite3
+Finished building target: PlayBeat
+ 
