@@ -14,8 +14,7 @@
 
 #include "notes.hxx"
 
-class MusicMetadata
-{
+class MusicMetadata {
 	public:
 		std::string title;
 		std::string artists;
@@ -24,8 +23,7 @@ class MusicMetadata
 		int bpm;
 		std::vector<Notes> topNotes;
 
-		std::string toString()
-		{
+		std::string toString() {
 			std::stringstream ss;
 			ss << "==" << title << ", by: " << artists << "==" << std::endl;
 			ss << "Genre: " << genre << ", length: "<< (length - length%60)/60 << ":" << length%60 << ", bpm: " << bpm << std::endl;

@@ -9,19 +9,14 @@
 #define BDD_BDDMANAGER_HXX_
 
 #include <sqlite3.h>
+#include <string>
 #include "../MusicMetadata.hxx"
 
 class BDDManager
 {
 public:
-	/**
-	 * Singleton pattern, get (or create) the current instance of
-	 * BDDManager.
-	 **/
-	static BDDManager& get_instance() {
-		static BDDManager inst;
-		return inst;
-	}
+	BDDManager(std::string bd_path);
+	~BDDManager();
 
 	/**
 	 * Add music metadata to the sqlite database.
@@ -35,11 +30,6 @@ public:
 
 
 private:
-	BDDManager();
-	BDDManager(BDDManager const&);
-	BDDManager& operator==(BDDManager const&);
-	~BDDManager();
-
 	sqlite3 *m_bdd;
 	sqlite3_stmt *m_stmt;
 };
