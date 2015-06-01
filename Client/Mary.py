@@ -3,9 +3,16 @@
 :brief: Main Window of the application.
 """
 
+import os
+import re
+
 from PySide import QtGui
+
 from ui import UIMainWindow
-import os, re
+from TableModel import TableModel
+import Fetcher
+import musicbrainzngs
+
 
 class MainWindow(QtGui.QMainWindow, UIMainWindow.Ui_MainWindow):
 	def __init__(self, parent=None):
@@ -39,5 +46,18 @@ class MainWindow(QtGui.QMainWindow, UIMainWindow.Ui_MainWindow):
 				path = os.path.join(dirname, filename)
 				if re.match("^.*(\.mp3|\.ogg)$", path) is not None:
 					audio_files.append(path)
+		model = TableModel()
+		for files in audio_files:
+			model.add_row([files, "Not Yet Fetch", "NOT YET", "NO"])
+		self.tableView.setModel(model)
+		self.tableView.resizeColumnsToContents()
 
-		self.
+		self.find_MBID()
+
+	def find_MBID(self):
+		musicbrainzngs.set_useragent("Mary", "Alpha", "contact@maeln.com")
+		model = self.tableView.model()
+		model.layoutAboutToBeChanged.emit()
+		for row in model.row:
+			row[1] = Fetcher.MusicbrainzFetcher.fetch(Fetcher.TagFetcher.fetch(row[0]))
+		model.layoutChanged.emit()
