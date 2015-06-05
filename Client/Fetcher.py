@@ -11,7 +11,19 @@ class TagFetcher:
 	@staticmethod
 	def fetch(file):
 		f = taglib.File(file)
-		return (f.tags["TITLE"], f.tags["ARTIST"], f.tags["ALBUM"], f.tags["GENRE"])
+		title = ""
+		artist = ""
+		album = ""
+		genre = ""
+		if "TITLE" in f.tags:
+			title = f.tags["TITLE"]
+		if "ARTIST" in f.tags:
+			artist = f.tags["ARTIST"]
+		if "ALBUM" in f.tags:
+			album = f.tags["ALBUM"]
+		if "GENRE" in f.tags:
+			genre = f.tags["GENRE"]
+		return (title, artist, album, genre)
 
 class MusicbrainzFetcher:
 	@staticmethod

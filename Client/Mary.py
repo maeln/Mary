@@ -10,8 +10,7 @@ from PySide import QtGui
 
 from ui import UIMainWindow
 from TableModel import TableModel
-import Fetcher
-import musicbrainzngs
+import ModelUpdater
 
 
 class MainWindow(QtGui.QMainWindow, UIMainWindow.Ui_MainWindow):
@@ -23,6 +22,9 @@ class MainWindow(QtGui.QMainWindow, UIMainWindow.Ui_MainWindow):
 		self.actionClose.triggered.connect(self.close_app)
 		self.findbutton.clicked.connect(self.get_directory)
 		self.acceptbutton.clicked.connect(self.found_music_file)
+
+		self.mu = ModelUpdater.ModelUpdater()
+		self.mu.init()
 
 	def about(self):
 		"""The About popup window."""
@@ -40,8 +42,9 @@ class MainWindow(QtGui.QMainWindow, UIMainWindow.Ui_MainWindow):
 	def found_music_file(self):
 		dir = self.pathedit.text()
 		audio_files = []
+		directories = os.walk(dir)
 		# Regex :
-		for dirname, _, filenames in os.walk(dir):
+		for dirname, _, filenames in directories:
 			for filename in filenames:
 				path = os.path.join(dirname, filename)
 				if re.match("^.*(\.mp3|\.ogg)$", path) is not None:
@@ -52,12 +55,9 @@ class MainWindow(QtGui.QMainWindow, UIMainWindow.Ui_MainWindow):
 		self.tableView.setModel(model)
 		self.tableView.resizeColumnsToContents()
 
-		self.find_MBID()
+		self.mu.set_model(self.tableView.model())
+		self.mu.start()
 
-	def find_MBID(self):
-		musicbrainzngs.set_useragent("Mary", "Alpha", "contact@maeln.com")
-		model = self.tableView.model()
-		model.layoutAboutToBeChanged.emit()
-		for row in model.row:
-			row[1] = Fetcher.MusicbrainzFetcher.fetch(Fetcher.TagFetcher.fetch(row[0]))
-		model.layoutChanged.emit()
+	def closeEvent(self, event):
+		self.mu.stop()
+		event.accept()
